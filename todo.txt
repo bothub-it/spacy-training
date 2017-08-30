@@ -1,0 +1,1 @@
+Check that tags in json are allowed
