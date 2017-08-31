@@ -6,5 +6,8 @@ from ...deprecated import PRON_LEMMA
 
 MORPH_RULES = {
     "PRP": {
+    {%- for row in data %}
+        "{{row[0]}}": {LEMMA: PRON_LEMMA, "PronType": "Prs"}{% if not loop.last %},{% endif %}
+    {%- endfor %}
     }
 }

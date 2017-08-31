@@ -1,17 +1,11 @@
 # encoding: utf8
 from __future__ import unicode_literals
+from ...symbols import ORTH
 
-from ...symbols import ORTH, LEMMA
+_contacted_words = {}
 
-_exc = {}
-
-ORTHS = set("""
-{%- for orth in orths %}
-{{ orth }}
+{%- for row in data %}
+_contacted_words["{{row[0]}}"] = [{%- for word in row %}{% if not loop.first %}{ORTH: "{{word}}"}{% if not loop.last %}, {% endif %}{% endif %}{%- endfor %}]
 {%- endfor %}
-""".split())
 
-for orth in ORTHS:
-    _exc[orth] = [{ORTH: orth}]
-
-TOKENIZER_EXCEPTIONS = dict(_exc)
+TOKENIZER_EXCEPTIONS = dict(_contacted_words)

@@ -23,6 +23,18 @@ SCONJ
 """.split())
 
 def convert(input_path, output_path, n_sents=10, use_morphology=False):
+    docs = render(input_path, n_sents=10, use_morphology=False)
+    write(input_path, output_path, docs)
+
+def write(input_path, output_path, docs):
+    output_filename = input_path.parts[-1].replace(".conllu", ".json")
+    output_filename = input_path.parts[-1].replace(".conll", ".json")
+    output_file = output_path / output_filename
+
+    with output_file.open('w', encoding='utf-8') as f:
+        f.write(ujson.dumps(docs, indent=2, escape_forward_slashes=False))
+
+def render(input_path, n_sents=10, use_morphology=False):
     docs = []
     sentences = []
     conll_tuples = __read_conllx(input_path, use_morphology=use_morphology)
@@ -34,12 +46,7 @@ def convert(input_path, output_path, n_sents=10, use_morphology=False):
             doc = __create_doc(sentences, i)
             docs.append(doc)
             sentences = []
-
-    output_filename = input_path.parts[-1].replace(".conllu", ".json")
-    output_filename = input_path.parts[-1].replace(".conll", ".json")
-    output_file = output_path / output_filename
-    with output_file.open('w', encoding='utf-8') as f:
-        f.write(ujson.dumps(docs, indent=2, escape_forward_slashes=False))
+    return docs
 
 def __read_conllx(input_path, use_morphology=False, n=0):
     text = input_path.open('r', encoding='utf-8').read()
@@ -64,6 +71,10 @@ def __read_conllx(input_path, use_morphology=False, n=0):
 
                     # Because of error i Danish format?
                     tag = pos
+
+                    # Security
+                    if not tag in ALLOWED_TAGS:
+                        raise Exception("Tag not allowed: " + tag)
 
                     tokens.append((id_, word, tag, head, dep, 'O'))
                 except:

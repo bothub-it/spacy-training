@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 STOP_WORDS = set("""
-{%- for stop_word in stop_words %}
-{{ stop_word }}
+{%- for row in data %}
+{{ row[0] }}
 {%- endfor %}
 """.split())
