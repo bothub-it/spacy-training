@@ -1,11 +1,12 @@
-from ..app.__main__ import *
+from ..app.linguist import *
 
 _dir = os.path.join(os.path.dirname(__file__), 'fixtures')
+_lang = 'da'
 
 _templates_dir = os.path.join(os.path.dirname(__file__), '..')
 
 def test_render_stop_words():
-    data = read_csv(_dir, 'stop_words.csv')
+    data = read_csv(_dir, _lang, 'stop_words.csv')
     result = render_template(_templates_dir, 'stop_words.py', data)
     expected = '''
 # encoding: utf8
@@ -19,7 +20,7 @@ af
     assert result == expected
 
 def test_render_lemmatizer():
-    data = read_csv(_dir, 'lemmas.csv')
+    data = read_csv(_dir, _lang, 'lemmas.csv')
     result = render_template(_templates_dir, 'lemmatizer.py', data)
     expected = '''
 # coding: utf8
@@ -33,7 +34,7 @@ LOOKUP = {
     assert result == expected
 
 def test_render_morph_rules():
-    data = read_csv(_dir, 'personal_pronouns.csv')
+    data = read_csv(_dir, _lang, 'personal_pronouns.csv')
     result = render_template(_templates_dir, 'morph_rules.py', data)
     expected = '''
 # coding: utf8
@@ -53,7 +54,7 @@ MORPH_RULES = {
     assert result == expected
 
 def test_render_norm_exceptions():
-    data = read_csv(_dir, 'same_spelling.csv')
+    data = read_csv(_dir, _lang, 'same_spelling.csv')
     result = render_template(_templates_dir, 'norm_exceptions.py', data)
     expected = '''
 # coding: utf8
@@ -72,7 +73,7 @@ for string, norm in _exc.items():
     assert result == expected
 
 def test_render_tokenizer_exceptions():
-    data = read_csv(_dir, 'contracted_words.csv')
+    data = read_csv(_dir, _lang, 'contracted_words.csv')
     result = render_template(_templates_dir, 'tokenizer_exceptions.py', data)
     expected = '''
 # encoding: utf8

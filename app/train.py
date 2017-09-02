@@ -12,5 +12,5 @@ dev_data = current_dir + "/../output/ud_dev.jsonu"
 n_iter=5
 n_sents=10
 
-def run():
-    train(cmd, lang, output_dir, train_data, dev_data, n_iter, n_sents, no_entities=True)
+# def run():
+#     train(cmd, lang, output_dir, train_data, dev_data, n_iter, n_sents, no_entities=True)
