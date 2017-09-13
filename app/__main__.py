@@ -3,7 +3,8 @@ from .linguist import *
 
 parser = argparse.ArgumentParser(description='Add a new language to spaCy.')
 
-parser.add_argument('code', type=str, help='The language code of the target language')
+parser.add_argument(
+    'code', type=str, help='The language code of the target language')
 parser.add_argument('name', type=str, help='The name of the target language')
 
 args = parser.parse_args()
