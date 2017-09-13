@@ -45,7 +45,7 @@ def render(input_path, n_sents=10, use_morphology=False):
     for i, (raw_text, tokens) in enumerate(conll_tuples):
         sentence, brackets = tokens[0]
         sentences.append(__generate_sentence(sentence))
-        if(len(sentences) % n_sents == 0):
+        if len(sentences) % n_sents == 0 :
             doc = __create_doc(sentences, i)
             docs.append(doc)
             sentences = []
@@ -87,7 +87,7 @@ def __read_conllx(input_path, use_morphology=False, n=0):
             tuples = [list(t) for t in zip(*tokens)]
             yield (None, [[tuples, []]])
             i += 1
-            if n >= 1 and i >= n:
+            if 1 <= n <= i:
                 break
 
 

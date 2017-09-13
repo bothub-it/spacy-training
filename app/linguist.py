@@ -34,7 +34,7 @@ def read_csv(_dir, _code, filename):
 
 
 def output(_dir, filename, data):
-    if (data is None):
+    if data is None:
         return
     write_template(_dir, filename, render_template(_dir, filename, data))
 

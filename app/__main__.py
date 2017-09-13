@@ -1,5 +1,6 @@
 import argparse
-from .linguist import *
+from .linguist import run
+import os.path
 
 parser = argparse.ArgumentParser(description='Add a new language to spaCy.')
 
