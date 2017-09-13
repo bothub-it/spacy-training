@@ -7,6 +7,7 @@ from jinja2 import Template
 from pathlib import Path
 
 from distutils.dir_util import copy_tree
+from shutil import copyfile
 
 def run(_dir, _code, _name):
     output(_dir, _code, 'stop_words.py', read_csv(_dir, _code, 'stop_words.csv'))
@@ -33,8 +34,11 @@ def add_language(_dir, _code):
         f.write(string)
 
     # copy subdirectory
-    name = _code + "_bothub"
+    name = _code + "_-0.0.0"
     copy_tree(os.path.join(_dir, '..', 'models', 'model4'), os.path.join(path, name))
+
+    # copy metadata
+    copyfile(os.path.join(path, name, 'meta.json'), os.path.join(path, 'meta.json'))
 
 
 def read_csv(_dir, _code, filename):
