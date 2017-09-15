@@ -22,9 +22,11 @@ PRON
 SCONJ
 """.split())
 
+
 def convert(input_path, output_path, n_sents=10, use_morphology=False):
     docs = render(input_path, n_sents=10, use_morphology=False)
     write(input_path, output_path, docs)
+
 
 def write(input_path, output_path, docs):
     output_filename = input_path.parts[-1].replace(".conllu", ".json")
@@ -34,6 +36,7 @@ def write(input_path, output_path, docs):
     with output_file.open('w', encoding='utf-8') as f:
         f.write(ujson.dumps(docs, indent=2, escape_forward_slashes=False))
 
+
 def render(input_path, n_sents=10, use_morphology=False):
     docs = []
     sentences = []
@@ -42,11 +45,12 @@ def render(input_path, n_sents=10, use_morphology=False):
     for i, (raw_text, tokens) in enumerate(conll_tuples):
         sentence, brackets = tokens[0]
         sentences.append(__generate_sentence(sentence))
-        if(len(sentences) % n_sents == 0):
+        if len(sentences) % n_sents == 0 :
             doc = __create_doc(sentences, i)
             docs.append(doc)
             sentences = []
     return docs
+
 
 def __read_conllx(input_path, use_morphology=False, n=0):
     text = input_path.open('r', encoding='utf-8').read()
@@ -67,7 +71,7 @@ def __read_conllx(input_path, use_morphology=False, n=0):
                     id_ = int(id_) - 1
                     head = (int(head) - 1) if head != '0' else id_
                     dep = 'ROOT' if dep == 'root' else dep
-                    tag = tag+'__'+morph  if use_morphology else tag
+                    tag = tag + '__' + morph if use_morphology else tag
 
                     # Because of error i Danish format?
                     tag = pos
@@ -83,8 +87,9 @@ def __read_conllx(input_path, use_morphology=False, n=0):
             tuples = [list(t) for t in zip(*tokens)]
             yield (None, [[tuples, []]])
             i += 1
-            if n >= 1 and i >= n:
+            if 1 <= n <= i:
                 break
+
 
 def __generate_sentence(sent):
     (id_, word, tag, head, dep, _) = sent
@@ -100,7 +105,8 @@ def __generate_sentence(sent):
     sentence["tokens"] = tokens
     return sentence
 
-def __create_doc(sentences,id):
+
+def __create_doc(sentences, id):
     doc = {}
     paragraph = {}
     doc["id"] = id

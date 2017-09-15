@@ -29,7 +29,6 @@ pytest==3.2.1
 regex==2017.4.5
 requests==2.18.4
 six==1.10.0
--e git+https://github.com/explosion/spaCy@2e28982e281533c9165937db58c9a03eb409bf24#egg=spacy_nightly
 termcolor==1.1.0
 thinc==6.8.0
 toolz==0.8.2

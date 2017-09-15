@@ -3,6 +3,12 @@ Linguist
 Tool used to create language files for spaCy.
 
 
+How to use
+----------
+This library need to be put in the same folder as spacy 2.0.0.
+
+See the RUN file for an example of how this library can be used.
+
 Universal dependencies
 ----------------------
 For each language, universal dependency files must be provided. (see http://universaldependencies.org/)
