@@ -50,7 +50,8 @@ def read_csv(_dir, _code, filename):
                 stripped_row = list(map(str.strip, row))
                 result.append(stripped_row)
     except:
-        result = None
+        print("Could not read csv " + filename)
+        pass
     return result
 
 

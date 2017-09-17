@@ -3,6 +3,7 @@ import os.path
 
 current_dir = os.path.dirname(__file__)
 
+
 def train_run(_dir, _code):
     models_path = os.path.join(_dir, '..', 'models')
     if not os.path.exists(models_path):
@@ -15,4 +16,5 @@ def train_run(_dir, _code):
     n_iter = 5
     n_sents = 10
 
-    train('train', _code, models_path, train_data, dev_data, n_iter, n_sents, no_entities=True)
+    train('train', _code, models_path, train_data,
+          dev_data, n_iter, n_sents, no_entities=True)
