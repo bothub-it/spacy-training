@@ -7,8 +7,10 @@ from jinja2 import Template
 from pathlib import Path
 from distutils.dir_util import copy_tree
 
+
 def run(_dir, _code, _name):
-    output(_dir, _code, 'stop_words.py', read_csv(_dir, _code, 'stop_words.csv'))
+    output(_dir, _code, 'stop_words.py',
+           read_csv(_dir, _code, 'stop_words.csv'))
     output(_dir, _code, 'lemmatizer.py', read_csv(_dir, _code, 'lemmas.csv'))
     output(_dir, _code, 'norm_exceptions.py', read_csv(
         _dir, _code, 'same_spelling.csv'))
@@ -18,8 +20,9 @@ def run(_dir, _code, _name):
         _dir, _code, 'personal_pronouns.csv'))
     output(_dir, _code, '__init__.py', [_name, _code])
     convert_ud(_dir, _code)
-    train_run(_dir,_code)
+    train_run(_dir, _code)
     add_language(_dir, _code)
+
 
 def add_language(_dir, _code):
     data_path = os.path.join(_dir, '..', 'spaCy', 'spacy', 'data', _code)
@@ -32,8 +35,9 @@ def add_language(_dir, _code):
         f.write(string)
 
     # copy subdirectory
-    subdir_name = _code + "_-0.0.0"
-    copy_tree(os.path.join(_dir, '..', 'models', 'model4'), os.path.join(data_path, subdir_name))
+    subdir_name = _code + "_bothub_" + _code + "-1.0.0"
+    copy_tree(os.path.join(_dir, '..', 'models', 'model4'),
+              os.path.join(data_path, subdir_name))
 
     # copy metadata
     data = {
@@ -68,7 +72,8 @@ def read_csv(_dir, _code, filename):
 def output(_dir, _code, filename, data):
     if data is None:
         return
-    write_template(_dir, _code, filename, render_template(_dir, filename, data))
+    write_template(_dir, _code, filename,
+                   render_template(_dir, filename, data))
 
 
 def render_template(_dir, filename, data):

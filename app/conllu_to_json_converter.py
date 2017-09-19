@@ -70,9 +70,9 @@ def __read_conllx(input_path, use_morphology=False, n=0):
                     id_ = int(id_) - 1
                     head = (int(head) - 1) if head != '0' else id_
                     dep = 'ROOT' if dep == 'root' else dep
-                    tag = tag + '__' + morph if use_morphology else tag
 
-                    # Because of error i Danish format?
+                    # Because of error i Danish format? (Need to investigate in phase 3.)
+                    # tag = tag + '__' + morph if use_morphology else tag
                     tag = pos
 
                     # Security
@@ -92,24 +92,21 @@ def __read_conllx(input_path, use_morphology=False, n=0):
 
 def __generate_sentence(sent):
     (id_, word, tag, head, dep, _) = sent
-    sentence = {}
     tokens = []
     for i, id in enumerate(id_):
-        token = {}
-        token["orth"] = word[i]
-        token["tag"] = tag[i]
-        token["head"] = head[i] - id
-        token["dep"] = dep[i]
-        tokens.append(token)
-    sentence["tokens"] = tokens
-    return sentence
+        tokens.append({
+                "orth": word[i],
+                "tag": tag[i],
+                "head": head[i] - id,
+                "dep": dep[i],
+        })
+    return {
+        "tokens": tokens
+    }
 
 
 def __create_doc(sentences, id):
-    doc = {}
-    paragraph = {}
-    doc["id"] = id
-    doc["paragraphs"] = []
-    paragraph["sentences"] = sentences
-    doc["paragraphs"].append(paragraph)
-    return doc
+    return {
+        "id": id,
+        "paragraphs": [{"sentences": sentences}]
+    }

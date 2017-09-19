@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from ...symbols import ORTH
 
+
 _contacted_words = {}
 
 {%- for row in data %}
