@@ -9,8 +9,8 @@ def train_run(_dir, _code):
     if not os.path.exists(models_path):
         os.makedirs(models_path)
 
-    train_data = current_dir + "/../output/ud_train.jsonu"
-    dev_data = current_dir + "/../output/ud_dev.jsonu"
+    train_data = current_dir + "/../output/ud_train.json"
+    dev_data = current_dir + "/../output/ud_dev.json"
     no_entities = True
 
     n_iter = 5
