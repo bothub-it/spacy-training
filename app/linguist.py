@@ -93,6 +93,8 @@ def write_template(_dir, _code, filename, string):
 
 def convert_ud(_dir, _code):
     output_path = os.path.join(_dir, 'output')
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
     input_path = os.path.join(_dir, 'input', _code, 'ud_train.conllu')
     convert(Path(input_path), Path(output_path))
     input_path = os.path.join(_dir, 'input', _code, 'ud_dev.conllu')
