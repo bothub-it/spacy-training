@@ -63,7 +63,7 @@ def __read_conllx(input_path, use_morphology=False, n=0):
             for line in lines:
 
                 parts = line.split('\t')
-                id_, word, lemma, pos, tag, morph, head, dep, _1, _2 = parts
+                id_, word, lemma, tag, _unused, morph, head, dep, _1, _2 = parts
                 if '-' in id_ or '.' in id_:
                     continue
                 try:
@@ -71,11 +71,6 @@ def __read_conllx(input_path, use_morphology=False, n=0):
                     head = (int(head) - 1) if head != '0' else id_
                     dep = 'ROOT' if dep == 'root' else dep
 
-                    # Because of error i Danish format? (Need to investigate in phase 3.)
-                    # tag = tag + '__' + morph if use_morphology else tag
-                    tag = pos
-
-                    # Security
                     if tag not in ALLOWED_TAGS:
                         raise Exception("Tag not allowed: " + tag)
 
