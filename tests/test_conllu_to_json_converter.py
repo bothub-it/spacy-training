@@ -1,4 +1,4 @@
-from ..app.conllu_to_json_converter import *
+from app.conllu_to_json_converter import *
 import os.path
 
 from pathlib import Path

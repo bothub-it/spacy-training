@@ -1,6 +1,7 @@
 # coding: utf8
 from __future__ import unicode_literals
 
+
 _exc = {
 {%- for row in data %}
     "{{ row[0] }}": "{{ row[1] }}"{% if not loop.last %},{% endif %}

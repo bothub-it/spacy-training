@@ -1,4 +1,4 @@
-from ..app.linguist import *
+from app.linguist import *
 
 _dir = os.path.join(os.path.dirname(__file__), 'fixtures')
 _lang = 'da'
@@ -11,6 +11,7 @@ def test_render_stop_words():
     expected = '''
 # encoding: utf8
 from __future__ import unicode_literals
+
 
 STOP_WORDS = set("""
 ad
@@ -25,6 +26,7 @@ def test_render_lemmatizer():
     expected = '''
 # coding: utf8
 from __future__ import unicode_literals
+
 
 LOOKUP = {
     "var": "er",
@@ -43,6 +45,7 @@ from __future__ import unicode_literals
 from ...symbols import LEMMA
 from ...deprecated import PRON_LEMMA
 
+
 MORPH_RULES = {
     "PRP": {
         "jeg": {LEMMA: PRON_LEMMA, "PronType": "Prs"},
@@ -59,6 +62,7 @@ def test_render_norm_exceptions():
     expected = '''
 # coding: utf8
 from __future__ import unicode_literals
+
 
 _exc = {
     "mayonnaise": "majonæse"
@@ -79,6 +83,7 @@ def test_render_tokenizer_exceptions():
 # encoding: utf8
 from __future__ import unicode_literals
 from ...symbols import ORTH
+
 
 _contacted_words = {}
 _contacted_words["imorgen"] = [{ORTH: "i"}, {ORTH: "morgen"}]

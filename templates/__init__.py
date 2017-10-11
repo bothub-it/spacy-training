@@ -14,6 +14,7 @@ from ...lemmatizerlookup import Lemmatizer
 from ...attrs import LANG, NORM
 from ...util import update_exc, add_lookups
 
+
 class {{ data[0] }}Defaults(Language.Defaults):
     lex_attr_getters = dict(Language.Defaults.lex_attr_getters)
     lex_attr_getters[LANG] = lambda text: '{{ data[1] }}'
@@ -25,6 +26,7 @@ class {{ data[0] }}Defaults(Language.Defaults):
     @classmethod
     def create_lemmatizer(cls, nlp=None):
         return Lemmatizer(LOOKUP)
+
 
 class {{ data[0] }}(Language):
     lang = '{{ data[1] }}'

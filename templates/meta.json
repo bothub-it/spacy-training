@@ -1,0 +1,16 @@
+{
+  "lang": "{{ data['lang'] }}",
+  "name": "{{ data['name'] }}",
+  "version": "{{ data['version'] }}",
+  "spacy_version":"2.0.0a14",
+  "description": "{{ data['description'] }}",
+  "author": "{{ data['author'] }}",
+  "email":"",
+  "url":"",
+  "license":"",
+  "pipeline":[
+    "tensorizer",
+    "tagger",
+    "parser"
+  ]
+}

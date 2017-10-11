@@ -9,6 +9,14 @@ This library need to be put in the same folder as spacy 2.0.0.
 
 See the RUN file for an example of how this library can be used.
 
+Testing
+-------
+
+We use pytest for testing. Run all tests with:
+```
+python3 -m pytest
+```
+
 Universal dependencies
 ----------------------
 For each language, universal dependency files must be provided. (see http://universaldependencies.org/)
