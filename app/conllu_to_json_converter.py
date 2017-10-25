@@ -63,7 +63,7 @@ def __read_conllx(input_path, use_morphology=False, n=0):
             for line in lines:
 
                 parts = line.split('\t')
-                id_, word, lemma, tag, _unused, morph, head, dep, _1, _2 = parts
+                id_, word, lemma, tag, _0, morph, head, dep, _1, _2 = parts
                 if '-' in id_ or '.' in id_:
                     continue
                 try:
