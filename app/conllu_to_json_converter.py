@@ -75,8 +75,8 @@ def __read_conllx(input_path, use_morphology=False, n=0):
                         raise Exception("Tag not allowed: " + tag)
 
                     tokens.append((id_, word, tag, head, dep, 'O'))
-                except:
-                    print(line)
+                except Exception as e:
+                    print("Line: %s, [ERROR: %s]" % (line, e.args))
                     raise
             tuples = [list(t) for t in zip(*tokens)]
             yield (None, [[tuples, []]])
