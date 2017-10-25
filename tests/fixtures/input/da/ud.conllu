@@ -1,0 +1,7 @@
+# sent_id = dev-0
+# text = Hvor kommer julemanden fra ?
+1	Hvor	hvor	ADV	_	_	2	advmod	_	_
+2	kommer	komme	VERB	_	Mood=Ind|Tense=Pres|VerbForm=Fin|Voice=Act	0	root	_	_
+3	julemanden	julemand	NOUN	_	Definite=Def|Gender=Com|Number=Sing	2	nsubj	_	_
+4	fra	fra	ADP	_	AdpType=Prep	1	case	_	_
+5	?	?	PUNCT	_	_	2	punct	_	_

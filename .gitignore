@@ -1,3 +1,6 @@
 .env
 .cache
 *.pyc
+output/
+env/
+.idea/
