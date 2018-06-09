@@ -23,5 +23,4 @@ def train_run(_dir, _code):
     n_iter = 10
     n_sents = measure_size(train_data) + measure_size(dev_data) / 2
 
-    train('train', _code, models_path, train_data,
-          dev_data, n_iter, n_sents, no_entities=no_entities)
+    train(_code, models_path, train_data, dev_data, n_iter, n_sents, no_entities=no_entities)
