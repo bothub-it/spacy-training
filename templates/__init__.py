@@ -10,7 +10,6 @@ from .lemmatizer import LOOKUP
 from ..tokenizer_exceptions import BASE_EXCEPTIONS
 from ..norm_exceptions import BASE_NORMS
 from ...language import Language
-from ...lemmatizerlookup import Lemmatizer
 from ...attrs import LANG, NORM
 from ...util import update_exc, add_lookups
 
@@ -22,10 +21,7 @@ class {{ data[0] }}Defaults(Language.Defaults):
 
     tokenizer_exceptions = update_exc(BASE_EXCEPTIONS, TOKENIZER_EXCEPTIONS)
     stop_words = set(STOP_WORDS)
-
-    @classmethod
-    def create_lemmatizer(cls, nlp=None):
-        return Lemmatizer(LOOKUP)
+    lemma_lookup = LOOKUP
 
 
 class {{ data[0] }}(Language):
