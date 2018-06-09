@@ -2,6 +2,22 @@ Linguist
 ========
 Tool used to create language files for spaCy.
 
+Installation
+----------
+Install dependencies
+```
+% virtualenv env
+% source env/bin/activate
+% pip install -r requirements.txt
+```
+
+Clone spaCy and install in the virtualenv
+```
+% cd ..
+% git clone https://github.com/explosion/spaCy.git spacy
+% cd spacy
+% pip install -e .
+```
 
 How to use
 ----------
