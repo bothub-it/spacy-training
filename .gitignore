@@ -4,3 +4,5 @@
 output/
 env/
 .idea/
+.vscode/
+.ipynb_checkpoints/
