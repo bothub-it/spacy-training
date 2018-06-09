@@ -63,8 +63,8 @@ def read_csv(_dir, _code, filename):
             for row in reader:
                 stripped_row = list(map(str.strip, row))
                 result.append(stripped_row)
-    except:
-        print("Could not read csv " + filename)
+    except Exception as e:
+        print("Could not read csv %s, [ERROR: %s]" % (filename, e.args))
         pass
     return result
 

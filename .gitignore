@@ -2,3 +2,5 @@
 .cache
 *.pyc
 output/
+env/
+.idea/

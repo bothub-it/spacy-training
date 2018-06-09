@@ -63,7 +63,7 @@ def __read_conllx(input_path, use_morphology=False, n=0):
             for line in lines:
 
                 parts = line.split('\t')
-                id_, word, lemma, tag, _0, morph, head, dep, _1, _2 = parts
+                id_, word, lemma, tag, _unused, morph, head, dep, _1, _2 = parts
                 if '-' in id_ or '.' in id_:
                     continue
                 try:
@@ -75,8 +75,8 @@ def __read_conllx(input_path, use_morphology=False, n=0):
                         raise Exception("Tag not allowed: " + tag)
 
                     tokens.append((id_, word, tag, head, dep, 'O'))
-                except:
-                    print(line)
+                except Exception as e:
+                    print("Line: %s, [ERROR: %s]" % (line, e.args))
                     raise
             tuples = [list(t) for t in zip(*tokens)]
             yield (None, [[tuples, []]])
