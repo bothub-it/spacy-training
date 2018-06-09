@@ -21,9 +21,10 @@ Clone spaCy and install in the virtualenv
 
 How to use
 ----------
-This library need to be put in the same folder as spacy 2.0.0.
-
-See the RUN file for an example of how this library can be used.
+Once spaCy 2.0 is configured at the root directory as spacy-training, and you provided the language requirements files, run the following command line inside spacy-training project:
+```
+% python -m app pt_br "Brazilian Portuguese"
+```
 
 Testing
 -------
