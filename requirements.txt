@@ -44,3 +44,4 @@ wcwidth==0.1.7
 webencodings==0.5.1
 wrapt==1.10.11
 yarg==0.1.9
+jupyter==4.4.0
