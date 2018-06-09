@@ -2,12 +2,29 @@ Linguist
 ========
 Tool used to create language files for spaCy.
 
+Installation
+----------
+Install dependencies
+```
+% virtualenv env
+% source env/bin/activate
+% pip install -r requirements.txt
+```
+
+Clone spaCy and install in the virtualenv
+```
+% cd ..
+% git clone https://github.com/explosion/spaCy.git spacy
+% cd spacy
+% pip install -e .
+```
 
 How to use
 ----------
-This library need to be put in the same folder as spacy 2.0.0.
-
-See the RUN file for an example of how this library can be used.
+Once spaCy 2.0 is configured at the root directory as spacy-training, and you provided the language requirements files, run the following command line inside spacy-training project:
+```
+% python -m app pt_br "Brazilian Portuguese"
+```
 
 Testing
 -------
