@@ -32,4 +32,4 @@ def train_fast_text(_dir, _code):
         os.makedirs(models_path)
 
     train_data = current_dir + "/../input/{0}/cc.{0}.300.vec.gz".format(_code)
-    init_model(_code, models_path, train_data)
+    init_model(_code, models_path, vectors_loc=train_data)
