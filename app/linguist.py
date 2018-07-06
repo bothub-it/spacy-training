@@ -29,10 +29,10 @@ def run(_dir, _code, _name, _type):
     elif _type == TYPE_FAST_TEXT:
         train_fast_text(_dir, _code)
 
-    add_language(_dir, _code)
+    add_language(_dir, _code, _type)
 
 
-def add_language(_dir, _code):
+def add_language(_dir, _code, _type):
     data_path = os.path.join(_dir, '..', 'spaCy', 'spacy', 'data', _code)
     if not os.path.exists(data_path):
         os.makedirs(data_path)
@@ -43,9 +43,12 @@ def add_language(_dir, _code):
         f.write(string)
 
     # copy subdirectory
-    subdir_name = _code + "_bothub_" + _code + "-1.0.0"
-    copy_tree(os.path.join(_dir, '..', 'models', 'model4'),
-              os.path.join(data_path, subdir_name))
+    if _type == TYPE_UNIVERSAL_DEPS:
+        subdir_name = _code + "_bothub_" + _code + "-1.0.0"
+        copy_tree(os.path.join(_dir, '..', 'models', _code, 'model4'),
+                  os.path.join(data_path, subdir_name))
+    else:
+        subdir_name = os.path.join(_dir, '..', 'models', _code)
 
     # copy metadata
     data = {
