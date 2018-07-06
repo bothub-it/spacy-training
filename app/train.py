@@ -1,4 +1,6 @@
-from spacy.cli import train
+from pathlib import Path
+
+from spacy.cli import train, init_model
 import os.path
 import json
 
@@ -12,9 +14,7 @@ def measure_size(data_file):
 
 
 def train_run(_dir, _code):
-    models_path = os.path.join(_dir, '..', 'models')
-    if not os.path.exists(models_path):
-        os.makedirs(models_path)
+    models_path = create_models_path(_code, _dir)
 
     train_data = current_dir + "/../output/ud_train.json"
     dev_data = current_dir + "/../output/ud_dev.json"
@@ -24,3 +24,17 @@ def train_run(_dir, _code):
     n_sents = measure_size(train_data) + measure_size(dev_data) / 2
 
     train(_code, models_path, train_data, dev_data, n_iter, n_sents, no_entities=no_entities)
+
+
+def create_models_path(_code, _dir):
+    models_path = os.path.join(_dir, '..', 'models', _code)
+    if not os.path.exists(models_path):
+        os.makedirs(models_path)
+    return models_path
+
+
+def train_fast_text(_dir, _code):
+    models_path = create_models_path(_code, _dir)
+
+    train_data = current_dir + "/../input/{0}/cc.{0}.300.vec.gz".format(_code)
+    init_model(_code, Path(models_path), vectors_loc=train_data)
