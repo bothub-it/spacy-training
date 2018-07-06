@@ -49,6 +49,7 @@ def add_language(_dir, _code, _type):
                   os.path.join(data_path, subdir_name))
     else:
         subdir_name = os.path.join(_dir, '..', 'models', _code)
+        copy_tree(subdir_name, os.path.join(data_path, subdir_name))
 
     # copy metadata
     data = {
