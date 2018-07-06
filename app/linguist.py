@@ -42,13 +42,12 @@ def add_language(_dir, _code, _type):
     with open(os.path.join(data_path, '__init__.py'), "w") as f:
         f.write(string)
 
+    subdir_name = _code + "_bothub_" + _code + "-1.0.0"
     # copy subdirectory
     if _type == TYPE_UNIVERSAL_DEPS:
-        subdir_name = _code + "_bothub_" + _code + "-1.0.0"
         copy_tree(os.path.join(_dir, '..', 'models', _code, 'model4'),
                   os.path.join(data_path, subdir_name))
     else:
-        subdir_name = os.path.join(_dir, '..', 'models', _code)
         copy_tree(subdir_name, os.path.join(data_path, subdir_name))
 
     # copy metadata
