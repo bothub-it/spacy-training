@@ -31,5 +31,5 @@ def train_fast_text(_dir, _code):
     if not os.path.exists(models_path):
         os.makedirs(models_path)
 
-    train_data = current_dir + "/../input/cc.{0}.300.vec.gz".format(_code)
+    train_data = current_dir + "/../input/{0}/cc.{0}.300.vec.gz".format(_code)
     init_model(_code, models_path, train_data)
