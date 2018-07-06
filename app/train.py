@@ -1,4 +1,4 @@
-from spacy.cli import train
+from spacy.cli import train, init_model
 import os.path
 import json
 
@@ -24,3 +24,12 @@ def train_run(_dir, _code):
     n_sents = measure_size(train_data) + measure_size(dev_data) / 2
 
     train(_code, models_path, train_data, dev_data, n_iter, n_sents, no_entities=no_entities)
+
+
+def train_fast_text(_dir, _code):
+    models_path = os.path.join(_dir, '..', 'models')
+    if not os.path.exists(models_path):
+        os.makedirs(models_path)
+
+    train_data = current_dir + "/../input/cc.{0}.300.vec.gz".format(_code)
+    init_model(_code, models_path, train_data)

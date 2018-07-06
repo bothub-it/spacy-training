@@ -2,13 +2,16 @@ import os.path
 import csv
 
 from .conllu_to_json_converter import convert
-from .train import train_run
+from .train import train_run, train_fast_text
 from jinja2 import Template
 from pathlib import Path
 from distutils.dir_util import copy_tree
 
+TYPE_UNIVERSAL_DEPS = 'ud'
+TYPE_FAST_TEXT = 'fasttext'
 
-def run(_dir, _code, _name):
+
+def run(_dir, _code, _name, _type):
     output(_dir, _code, 'stop_words.py',
            read_csv(_dir, _code, 'stop_words.csv'))
     output(_dir, _code, 'lemmatizer.py', read_csv(_dir, _code, 'lemmas.csv'))
@@ -19,8 +22,13 @@ def run(_dir, _code, _name):
     output(_dir, _code, 'morph_rules.py', read_csv(
         _dir, _code, 'personal_pronouns.csv'))
     output(_dir, _code, '__init__.py', [_name, _code])
-    convert_ud(_dir, _code)
-    train_run(_dir, _code)
+
+    if _type == TYPE_UNIVERSAL_DEPS:
+        convert_ud(_dir, _code)
+        train_run(_dir, _code)
+    elif _type == TYPE_FAST_TEXT:
+        train_fast_text(_dir, _code)
+
     add_language(_dir, _code)
 
 
