@@ -5,13 +5,13 @@ ENV APP_HOME /usr/src/app
 
 WORKDIR ${APP_HOME}
 
-COPY requirements.txt ./
+COPY ../requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 RUN git clone --branch $GITHUB_BRANCH https://github.com/${GITHUB_REPOSITORY} $SPACY_HOME
 RUN pip install -e $SPACY_HOME
 
-COPY . .
+COPY ../ .
 
 COPY $GITHUB_KEY_PATH /root/.ssh
 COPY $GITHUB_KEY_RSA_PATH /root/.ssh
