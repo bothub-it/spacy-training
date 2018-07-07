@@ -8,7 +8,7 @@ WORKDIR ${APP_HOME}
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN git clone --branch v2.0.12 https://github.com/explosion/spaCy.git $SPACY_HOME
+RUN git clone --branch feature/processing https://github.com/ilhasoft/spaCy.git $SPACY_HOME
 RUN pip install -e $SPACY_HOME
 
 COPY . .
