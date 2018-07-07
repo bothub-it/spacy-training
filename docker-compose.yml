@@ -1,0 +1,12 @@
+version: '3.3'
+
+services:
+  bothub:
+    image: ${DOCKER_IMAGE_NAME:-ilha/spacy-training}:${TAG:-latest}
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    environment:
+      - LANG_ISO
+      - LANG_NAME
+      - TRANING_TYPE
