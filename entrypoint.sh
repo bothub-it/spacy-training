@@ -12,5 +12,7 @@ cd $SPACY_HOME
 
 git add .
 git commit -m "Add ${LANG_NAME} language files"
+
+git remote set-url origin git+ssh://git@github.com/ilhasoft/spaCy.git
 git push origin feature/processing
 
