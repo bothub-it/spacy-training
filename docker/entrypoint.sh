@@ -14,5 +14,7 @@ git add .
 git -c user.name="$GITHUB_USERNAME" -c user.email="$GITHUB_EMAIL" commit -m "Add ${LANG_NAME} language files"
 
 git remote set-url origin git+ssh://git@github.com/ilhasoft/spaCy.git
+
+ssh-keyscan github.com >> /root/.ssh/known_hosts
 git push origin feature/processing
 
