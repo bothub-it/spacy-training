@@ -16,17 +16,18 @@ DEFAULT_FAST_TEXT_NAME = 'vectors_web_lg'
 MODEL_NAME_FORMAT = '{0}_{1}-1.0.0'
 
 
-def run(_dir, _code, _name, _type):
-    output(_dir, _code, 'stop_words.py',
-           read_csv(_dir, _code, 'stop_words.csv'))
-    output(_dir, _code, 'lemmatizer.py', read_csv(_dir, _code, 'lemmas.csv'))
-    output(_dir, _code, 'norm_exceptions.py', read_csv(
-        _dir, _code, 'same_spelling.csv'))
-    output(_dir, _code, 'tokenizer_exceptions.py', read_csv(
-        _dir, _code, 'contracted_words.csv'))
-    output(_dir, _code, 'morph_rules.py', read_csv(
-        _dir, _code, 'personal_pronouns.csv'))
-    output(_dir, _code, '__init__.py', [_name, _code])
+def run(_dir, _code, _name, _type, _overwrite):
+    if _overwrite:
+        output(_dir, _code, 'stop_words.py',
+               read_csv(_dir, _code, 'stop_words.csv'))
+        output(_dir, _code, 'lemmatizer.py', read_csv(_dir, _code, 'lemmas.csv'))
+        output(_dir, _code, 'norm_exceptions.py', read_csv(
+            _dir, _code, 'same_spelling.csv'))
+        output(_dir, _code, 'tokenizer_exceptions.py', read_csv(
+            _dir, _code, 'contracted_words.csv'))
+        output(_dir, _code, 'morph_rules.py', read_csv(
+            _dir, _code, 'personal_pronouns.csv'))
+        output(_dir, _code, '__init__.py', [_name, _code])
 
     if _type == TYPE_UNIVERSAL_DEPS:
         convert_ud(_dir, _code)
@@ -62,7 +63,6 @@ def add_language(_dir, _code, _name, _type):
         with open(os.path.join(data_path, subdir_name, 'meta.json'), "w") as f:
             f.write(string)
     else:
-        meta = data
         with open(os.path.join(model_path, 'meta.json'), 'r', encoding='utf-8') as outfile:
             meta = json.load(outfile)
             meta.update(data)

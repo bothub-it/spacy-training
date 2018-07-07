@@ -12,6 +12,7 @@ services:
       - LANG_ISO
       - LANG_NAME
       - TRANING_TYPE
+      - OVERWRITE_LANG
       - GITHUB_USERNAME
       - GITHUB_EMAIL
       - GITHUB_SSH_PRIVATE_KEY
