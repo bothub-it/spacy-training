@@ -1,1 +1,1 @@
-python -m app $LANG_ISO $LANG_NAME
+python -m app $LANG_ISO $LANG_NAME $TRANING_TYPE
