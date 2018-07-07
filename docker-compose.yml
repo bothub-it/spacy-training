@@ -4,8 +4,8 @@ services:
   spacy-training:
     image: ${DOCKER_IMAGE_NAME:-ilha/spacy-training}:${TAG:-latest}
     build:
-      context: ..
-      dockerfile: docker/Dockerfile
+      context: .
+      dockerfile: Dockerfile
     environment:
       - LANG_ISO
       - LANG_NAME
