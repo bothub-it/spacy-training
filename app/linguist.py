@@ -65,7 +65,9 @@ def add_language(_dir, _code, _name, _type):
         with open(os.path.join(model_path, 'meta.json'), 'r+') as f:
             meta = json.load(f)
             meta.update(data)
-            f.write(json.dumps(meta))
+
+            f.truncate(0)
+            f.write(json.dumps(meta, indent=4))
 
         copy_tree(model_path, os.path.join(data_path, subdir_name))
 
