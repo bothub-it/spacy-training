@@ -18,5 +18,5 @@ COPY . .
 COPY $GITHUB_KEY_PATH /root/.ssh
 COPY $GITHUB_KEY_RSA_PATH /root/.ssh
 
-RUN chmod +x entrypoint.sh
-ENTRYPOINT $APP_HOME/entrypoint.sh
+RUN chmod +x docker/entrypoint.sh
+ENTRYPOINT $APP_HOME/docker/entrypoint.sh
