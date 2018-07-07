@@ -26,16 +26,19 @@ def run(_dir, _code, _name, _type):
         _dir, _code, 'personal_pronouns.csv'))
     output(_dir, _code, '__init__.py', [_name, _code])
 
+    nlp = None
     if _type == TYPE_UNIVERSAL_DEPS:
         convert_ud(_dir, _code)
         train_run(_dir, _code)
     elif _type == TYPE_FAST_TEXT:
-        train_fast_text(_dir, _code)
+        nlp = train_fast_text(_dir, _code)
 
-    add_language(_dir, _code, _type)
+    add_language(_dir, _code, _type, nlp)
 
 
-def add_language(_dir, _code, _type):
+def add_language(_dir, _code, _type, nlp):
+    model_path = os.path.join(_dir, '..', 'models', _code)
+
     data_path = os.path.join(_dir, '..', 'spaCy', 'spacy', 'data', _code)
     if not os.path.exists(data_path):
         os.makedirs(data_path)
@@ -48,26 +51,38 @@ def add_language(_dir, _code, _type):
     subdir_name = MODEL_NAME_FORMAT.format(_code, DEFAULT_FAST_TEXT_NAME)
     # copy subdirectory
     if _type == TYPE_UNIVERSAL_DEPS:
-        copy_tree(os.path.join(_dir, '..', 'models', _code, 'model4'),
+        copy_tree(os.path.join(model_path, 'model4'),
                   os.path.join(data_path, subdir_name))
+
+        data = metadata(_code)
+        string = render_template(_dir, 'meta.json', data)
+        with open(os.path.join(data_path, 'meta.json'), "w") as f:
+            f.write(string)
+        with open(os.path.join(data_path, subdir_name, 'meta.json'), "w") as f:
+            f.write(string)
     else:
-        model_path = os.path.join(_dir, '..', 'models', _code)
+        meta = nlp.meta()
+        meta.update(metadata(_code))
+
+        with open(os.path.join(model_path, 'meta.json'), "w") as f:
+            f.write(meta)
+
         copy_tree(model_path, os.path.join(data_path, subdir_name))
 
+
+def metadata(_code):
     # copy metadata
     data = {
         'lang': _code,
         'name': DEFAULT_FAST_TEXT_NAME,
         'version': '1.0.0',
         'description': 'Swahili model generated from fastText vectors',
-        'author': 'Bothub'
+        'author': 'Bothub',
+        'email': 'bothub@ilhasoft.com.br',
+        'url': 'https://bothub.it',
+        'license': 'MIT'
     }
-
-    string = render_template(_dir, 'meta.json', data)
-    with open(os.path.join(data_path, 'meta.json'), "w") as f:
-        f.write(string)
-    with open(os.path.join(data_path, subdir_name, 'meta.json'), "w") as f:
-        f.write(string)
+    return data
 
 
 def read_csv(_dir, _code, filename):
