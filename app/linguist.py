@@ -34,10 +34,10 @@ def run(_dir, _code, _name, _type):
     elif _type == TYPE_FAST_TEXT:
         train_fast_text(_dir, _code)
 
-    add_language(_dir, _code, _type)
+    add_language(_dir, _code, _name, _type)
 
 
-def add_language(_dir, _code, _type):
+def add_language(_dir, _code, _name, _type):
     model_path = os.path.join(_dir, '..', 'models', _code)
 
     data_path = os.path.join(_dir, '..', 'spaCy', 'spacy', 'data', _code)
@@ -49,7 +49,7 @@ def add_language(_dir, _code, _type):
     with open(os.path.join(data_path, '__init__.py'), "w") as f:
         f.write(string)
 
-    data = metadata(_code)
+    data = metadata(_code, _name)
     subdir_name = MODEL_NAME_FORMAT.format(_code, DEFAULT_FAST_TEXT_NAME)
     # copy subdirectory
     if _type == TYPE_UNIVERSAL_DEPS:
@@ -62,7 +62,7 @@ def add_language(_dir, _code, _type):
         with open(os.path.join(data_path, subdir_name, 'meta.json'), "w") as f:
             f.write(string)
     else:
-        with open(os.path.join(model_path, 'meta.json'), 'wr') as f:
+        with open(os.path.join(model_path, 'meta.json'), 'r+') as f:
             meta = json.load(f)
             meta.update(data)
             f.write(json.dumps(meta))
@@ -70,13 +70,13 @@ def add_language(_dir, _code, _type):
         copy_tree(model_path, os.path.join(data_path, subdir_name))
 
 
-def metadata(_code):
+def metadata(_code, _name):
     # copy metadata
     data = {
         'lang': _code,
         'name': DEFAULT_FAST_TEXT_NAME,
         'version': '1.0.0',
-        'description': 'Swahili model generated from fastText vectors',
+        'description': '{0} model generated from fastText vectors'.format(_name),
         'author': 'Bothub',
         'email': 'bothub@ilhasoft.com.br',
         'url': 'https://bothub.it',
