@@ -18,6 +18,7 @@ COPY . .
 
 RUN mkdir /root/.ssh/
 RUN echo "${GITHUB_SSH_PRIVATE_KEY}" > /root/.ssh/id_rsa
+RUN chmod 0400 /root/.ssh/id_rsa
 
 RUN chmod +x docker/entrypoint.sh
 ENTRYPOINT $APP_HOME/docker/entrypoint.sh
