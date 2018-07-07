@@ -10,5 +10,11 @@ services:
       - LANG_ISO
       - LANG_NAME
       - TRANING_TYPE
+      - GITHUB_USERNAME
+      - GITHUB_EMAIL
+      - GITHUB_REPOSITORY
+      - GITHUB_BRANCH
+      - GITHUB_KEY_PATH
+      - GITHUB_KEY_RSA_PATH
       - AWS_ACCESS_KEY_ID
       - AWS_SECRET_ACCESS_KEY
