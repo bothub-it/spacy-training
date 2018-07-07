@@ -1,4 +1,5 @@
 autopep8==1.3.2
+awscli==1.15.53
 certifi==2017.7.27.1
 chainer==1.24.0
 chardet==3.0.4
