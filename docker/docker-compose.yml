@@ -6,6 +6,8 @@ services:
     build:
       context: ../
       dockerfile: docker/Dockerfile
+      args:
+        - GITHUB_SSH_PRIVATE_KEY
     environment:
       - LANG_ISO
       - LANG_NAME

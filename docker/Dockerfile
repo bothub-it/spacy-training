@@ -2,6 +2,7 @@ FROM python:3.6
 
 ENV SPACY_HOME /usr/src/spaCy
 ENV APP_HOME /usr/src/app
+ARG GITHUB_SSH_PRIVATE_KEY
 
 WORKDIR ${APP_HOME}
 
