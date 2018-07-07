@@ -15,8 +15,8 @@ RUN pip install -e $SPACY_HOME
 
 COPY . .
 
-COPY $GITHUB_KEY_PATH /root/.ssh
-COPY $GITHUB_KEY_RSA_PATH /root/.ssh
+RUN mkdir /root/.ssh/
+RUN echo "${GITHUB_SSH_PRIVATE_KEY}" > /root/.ssh/id_rsa
 
 RUN chmod +x docker/entrypoint.sh
 ENTRYPOINT $APP_HOME/docker/entrypoint.sh
