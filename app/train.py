@@ -46,4 +46,4 @@ def train_fast_text(_dir, _code):
     if not os.path.exists(train_data):
         download(FAST_TEXT_URL_FORMAT.format(filename), filename, train_data)
 
-    return init_model(_code, Path(models_path), vectors_loc=train_data)
+    init_model(_code, Path(models_path), vectors_loc=train_data)

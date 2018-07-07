@@ -1,3 +1,5 @@
+import json
+
 import os.path
 import csv
 
@@ -26,17 +28,16 @@ def run(_dir, _code, _name, _type):
         _dir, _code, 'personal_pronouns.csv'))
     output(_dir, _code, '__init__.py', [_name, _code])
 
-    nlp = None
     if _type == TYPE_UNIVERSAL_DEPS:
         convert_ud(_dir, _code)
         train_run(_dir, _code)
     elif _type == TYPE_FAST_TEXT:
-        nlp = train_fast_text(_dir, _code)
+        train_fast_text(_dir, _code)
 
-    add_language(_dir, _code, _type, nlp)
+    add_language(_dir, _code, _type)
 
 
-def add_language(_dir, _code, _type, nlp):
+def add_language(_dir, _code, _type):
     model_path = os.path.join(_dir, '..', 'models', _code)
 
     data_path = os.path.join(_dir, '..', 'spaCy', 'spacy', 'data', _code)
@@ -48,24 +49,23 @@ def add_language(_dir, _code, _type, nlp):
     with open(os.path.join(data_path, '__init__.py'), "w") as f:
         f.write(string)
 
+    data = metadata(_code)
     subdir_name = MODEL_NAME_FORMAT.format(_code, DEFAULT_FAST_TEXT_NAME)
     # copy subdirectory
     if _type == TYPE_UNIVERSAL_DEPS:
         copy_tree(os.path.join(model_path, 'model4'),
                   os.path.join(data_path, subdir_name))
 
-        data = metadata(_code)
         string = render_template(_dir, 'meta.json', data)
         with open(os.path.join(data_path, 'meta.json'), "w") as f:
             f.write(string)
         with open(os.path.join(data_path, subdir_name, 'meta.json'), "w") as f:
             f.write(string)
     else:
-        meta = nlp.meta()
-        meta.update(metadata(_code))
-
-        with open(os.path.join(model_path, 'meta.json'), "w") as f:
-            f.write(meta)
+        with open(os.path.join(model_path, 'meta.json'), 'wr') as f:
+            meta = json.load(f)
+            meta.update(data)
+            f.write(json.dumps(meta))
 
         copy_tree(model_path, os.path.join(data_path, subdir_name))
 
