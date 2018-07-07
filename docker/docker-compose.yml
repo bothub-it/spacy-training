@@ -12,7 +12,6 @@ services:
       - TRANING_TYPE
       - GITHUB_USERNAME
       - GITHUB_EMAIL
-      - GITHUB_REPOSITORY
       - GITHUB_BRANCH
       - GITHUB_KEY_PATH
       - GITHUB_KEY_RSA_PATH

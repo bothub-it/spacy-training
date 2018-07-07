@@ -13,6 +13,6 @@ cd $SPACY_HOME
 git add .
 git -c user.name='${GITHUB_USERNAME}' -c user.email='${GITHUB_EMAIL}' commit -m "Add ${LANG_NAME} language files"
 
-git remote set-url origin git+ssh://git@github.com/${GITHUB_REPOSITORY}
+git remote set-url origin git+ssh://git@github.com/ilhasoft/spaCy.git
 git push origin ${GITHUB_BRANCH}
 
