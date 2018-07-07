@@ -2,13 +2,16 @@ import os.path
 import csv
 
 from .conllu_to_json_converter import convert
-from .train import train_run
+from .train import train_run, train_fast_text
 from jinja2 import Template
 from pathlib import Path
 from distutils.dir_util import copy_tree
 
+TYPE_UNIVERSAL_DEPS = 'ud'
+TYPE_FAST_TEXT = 'fasttext'
 
-def run(_dir, _code, _name):
+
+def run(_dir, _code, _name, _type):
     output(_dir, _code, 'stop_words.py',
            read_csv(_dir, _code, 'stop_words.csv'))
     output(_dir, _code, 'lemmatizer.py', read_csv(_dir, _code, 'lemmas.csv'))
@@ -19,12 +22,17 @@ def run(_dir, _code, _name):
     output(_dir, _code, 'morph_rules.py', read_csv(
         _dir, _code, 'personal_pronouns.csv'))
     output(_dir, _code, '__init__.py', [_name, _code])
-    convert_ud(_dir, _code)
-    train_run(_dir, _code)
-    add_language(_dir, _code)
+
+    if _type == TYPE_UNIVERSAL_DEPS:
+        convert_ud(_dir, _code)
+        train_run(_dir, _code)
+    elif _type == TYPE_FAST_TEXT:
+        train_fast_text(_dir, _code)
+
+    add_language(_dir, _code, _type)
 
 
-def add_language(_dir, _code):
+def add_language(_dir, _code, _type):
     data_path = os.path.join(_dir, '..', 'spaCy', 'spacy', 'data', _code)
     if not os.path.exists(data_path):
         os.makedirs(data_path)
@@ -34,10 +42,14 @@ def add_language(_dir, _code):
     with open(os.path.join(data_path, '__init__.py'), "w") as f:
         f.write(string)
 
-    # copy subdirectory
     subdir_name = _code + "_bothub_" + _code + "-1.0.0"
-    copy_tree(os.path.join(_dir, '..', 'models', 'model4'),
-              os.path.join(data_path, subdir_name))
+    # copy subdirectory
+    if _type == TYPE_UNIVERSAL_DEPS:
+        copy_tree(os.path.join(_dir, '..', 'models', _code, 'model4'),
+                  os.path.join(data_path, subdir_name))
+    else:
+        model_path = os.path.join(_dir, '..', 'models', _code)
+        copy_tree(model_path, os.path.join(data_path, subdir_name))
 
     # copy metadata
     data = {
