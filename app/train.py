@@ -1,10 +1,14 @@
+import json
 from pathlib import Path
 
-from spacy.cli import train, init_model
 import os.path
-import json
+from spacy.cli import train, init_model
+
+from app.utils import download
 
 current_dir = os.path.dirname(__file__)
+
+FAST_TEXT_URL_FORMAT = 'https://s3-us-west-1.amazonaws.com/fasttext-vectors/word-vectors-v2/{0}'
 
 
 def measure_size(data_file):
@@ -16,8 +20,8 @@ def measure_size(data_file):
 def train_run(_dir, _code):
     models_path = create_models_path(_code, _dir)
 
-    train_data = current_dir + "/../output/ud_train.json"
-    dev_data = current_dir + "/../output/ud_dev.json"
+    train_data = current_dir + '/../output/ud_train.json'
+    dev_data = current_dir + '/../output/ud_dev.json'
     no_entities = True
 
     n_iter = 10
@@ -36,5 +40,10 @@ def create_models_path(_code, _dir):
 def train_fast_text(_dir, _code):
     models_path = create_models_path(_code, _dir)
 
-    train_data = current_dir + "/../input/{0}/cc.{0}.300.vec.gz".format(_code)
+    filename = 'cc.{0}.300.vec.gz'.format(_code)
+    train_data = current_dir + '/../input/{0}/{1}'.format(_code, filename)
+
+    if not os.path.exists(train_data):
+        download(FAST_TEXT_URL_FORMAT.format(filename), filename, train_data)
+
     init_model(_code, Path(models_path), vectors_loc=train_data)
