@@ -8,15 +8,18 @@ python setup.py sdist
 
 aws s3 cp dist/${MODEL_NAME}.tar.gz s3://bothub-models/spacy/${MODEL_NAME}.tar.gz
 
-cd $SPACY_HOME
+if [ -z $OVERWRITE_LANG ] || [ $OVERWRITE_LANG != 'False' ]
+then
+    cd $SPACY_HOME
 
-git add .
-git -c user.name="$GITHUB_USERNAME" -c user.email="$GITHUB_EMAIL" commit -m "Add ${LANG_NAME} language files"
+    git add .
+    git -c user.name="$GITHUB_USERNAME" -c user.email="$GITHUB_EMAIL" commit -m "Add ${LANG_NAME} language files"
 
-git remote set-url origin git+ssh://git@github.com/ilhasoft/spaCy.git
+    git remote set-url origin git+ssh://git@github.com/ilhasoft/spaCy.git
 
-ssh-keyscan github.com >> /root/.ssh/known_hosts
+    ssh-keyscan github.com >> /root/.ssh/known_hosts
 
-git -c user.name="$GITHUB_USERNAME" -c user.email="$GITHUB_EMAIL" pull origin feature/processing --no-edit
-git push origin feature/processing
+    git -c user.name="$GITHUB_USERNAME" -c user.email="$GITHUB_EMAIL" pull origin feature/processing --no-edit
+    git push origin feature/processing
+fi
 
