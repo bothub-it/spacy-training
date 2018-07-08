@@ -23,3 +23,12 @@ def download(url, name, path):
             file.write(chunk)
             bar.update(len(chunk))
     os.rename(temp_name, path)
+
+
+def str_to_bool(s):
+    if s == 'True':
+        return True
+    elif s == 'False':
+        return False
+    else:
+        raise ValueError
