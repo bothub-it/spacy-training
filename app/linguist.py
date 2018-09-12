@@ -16,7 +16,7 @@ DEFAULT_FAST_TEXT_NAME = 'vectors_web_{0}'
 MODEL_NAME_FORMAT = '{0}_{1}-1.0.0'
 
 
-def run(_dir, _code, _name, _type, _overwrite, _size):
+def run(_dir, _code, _name, _type, _overwrite, _size, _prune_vectors):
     if _overwrite:
         output(_dir, _code, 'stop_words.py',
                read_csv(_dir, _code, 'stop_words.csv'))
@@ -33,7 +33,7 @@ def run(_dir, _code, _name, _type, _overwrite, _size):
         convert_ud(_dir, _code)
         train_run(_dir, _code)
     elif _type == TYPE_FAST_TEXT:
-        train_fast_text(_dir, _code)
+        train_fast_text(_dir, _code, _prune_vectors)
 
     add_language(_dir, _code, _name, _type, _size)
 
