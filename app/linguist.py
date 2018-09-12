@@ -12,11 +12,11 @@ from distutils.dir_util import copy_tree
 TYPE_UNIVERSAL_DEPS = 'ud'
 TYPE_FAST_TEXT = 'fasttext'
 
-DEFAULT_FAST_TEXT_NAME = 'vectors_web_lg'
+DEFAULT_FAST_TEXT_NAME = 'vectors_web_{0}'
 MODEL_NAME_FORMAT = '{0}_{1}-1.0.0'
 
 
-def run(_dir, _code, _name, _type, _overwrite):
+def run(_dir, _code, _name, _type, _overwrite, _size):
     if _overwrite:
         output(_dir, _code, 'stop_words.py',
                read_csv(_dir, _code, 'stop_words.csv'))
@@ -35,10 +35,10 @@ def run(_dir, _code, _name, _type, _overwrite):
     elif _type == TYPE_FAST_TEXT:
         train_fast_text(_dir, _code)
 
-    add_language(_dir, _code, _name, _type)
+    add_language(_dir, _code, _name, _type, _size)
 
 
-def add_language(_dir, _code, _name, _type):
+def add_language(_dir, _code, _name, _type, _size):
     model_path = os.path.join(_dir, '..', 'models', _code)
 
     data_path = os.path.join(_dir, '..', 'spaCy', 'spacy', 'data', _code)
@@ -50,8 +50,9 @@ def add_language(_dir, _code, _name, _type):
     with open(os.path.join(data_path, '__init__.py'), "w") as f:
         f.write(string)
 
-    data = metadata(_code, _name)
-    subdir_name = MODEL_NAME_FORMAT.format(_code, DEFAULT_FAST_TEXT_NAME)
+    model_prefix = DEFAULT_FAST_TEXT_NAME.format(_size)
+    data = metadata(_code, _name, model_prefix)
+    subdir_name = MODEL_NAME_FORMAT.format(_code, model_prefix)
     # copy subdirectory
     if _type == TYPE_UNIVERSAL_DEPS:
         copy_tree(os.path.join(model_path, 'model4'),
@@ -74,11 +75,11 @@ def add_language(_dir, _code, _name, _type):
         copy_tree(model_path, os.path.join(data_path, subdir_name))
 
 
-def metadata(_code, _name):
+def metadata(_code, _name, _model_name):
     # copy metadata
     data = {
         'lang': _code,
-        'name': DEFAULT_FAST_TEXT_NAME,
+        'name': _model_name,
         'version': '1.0.0',
         'description': '{0} model generated from fastText vectors'.format(_name),
         'author': 'Bothub',

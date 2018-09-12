@@ -11,6 +11,7 @@ services:
     environment:
       - LANG_ISO
       - LANG_NAME
+      - LANG_SIZE
       - TRANING_TYPE
       - OVERWRITE_LANG
       - GITHUB_USERNAME
