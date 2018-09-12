@@ -41,10 +41,12 @@ def train_fast_text(_dir, _code, _download_code, _prune_vectors):
     models_path = create_models_path(_code, _dir)
     download_code = _download_code if _download_code else _code
 
-    filename = 'cc.{0}.300.vec.gz'.format(download_code)
+    download_filename = 'cc.{0}.300.vec.gz'.format(download_code)
+    filename = 'cc.{0}.300.vec.gz'.format(_code)
+
     train_data = current_dir + '/../input/{0}/{1}'.format(_code, filename)
 
     if not os.path.exists(train_data):
-        download(FAST_TEXT_URL_FORMAT.format(filename), filename, train_data)
+        download(FAST_TEXT_URL_FORMAT.format(download_filename), filename, train_data)
 
     init_model(_code, Path(models_path), vectors_loc=train_data, prune_vectors=_prune_vectors)
