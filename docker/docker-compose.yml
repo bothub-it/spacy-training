@@ -12,6 +12,7 @@ services:
       - LANG_ISO
       - LANG_NAME
       - LANG_SIZE
+      - PRUNE_VECTORS
       - TRANING_TYPE
       - OVERWRITE_LANG
       - GITHUB_USERNAME
