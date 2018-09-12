@@ -37,10 +37,11 @@ def create_models_path(_code, _dir):
     return models_path
 
 
-def train_fast_text(_dir, _code, _prune_vectors):
+def train_fast_text(_dir, _code, _download_code, _prune_vectors):
     models_path = create_models_path(_code, _dir)
+    download_code = _download_code if _download_code else _code
 
-    filename = 'cc.{0}.300.vec.gz'.format(_code)
+    filename = 'cc.{0}.300.vec.gz'.format(download_code)
     train_data = current_dir + '/../input/{0}/{1}'.format(_code, filename)
 
     if not os.path.exists(train_data):
