@@ -26,6 +26,33 @@ Once spaCy 2.0 is configured at the root directory as spacy-training, and you pr
 % python -m app pt_br "Brazilian Portuguese"
 ```
 
+Docker
+----------
+Using docker is the easiest way of processing the models. You can just go into docker directory and build the image:
+```
+docker-compose build --build-arg GITHUB_SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)"
+```
+`GITHUB_SSH_PRIVATE_KEY` is the key for your Github Account, that needs to have write permission on any fork from spaCy [repository](https://github.com/explosion/spaCy.git).
+
+After that, you can create a `.env` file inside the same directory with the following environment variables:
+```
+LANG_ISO: Language code for the current input (e.g. pt, en, id);
+LANG_NAME: Language name for the current input (e.g. BrazilianPortuguese, English, Indonesian);
+LANG_SIZE: Model size according to the vectors count. Available choices: sm, md or lg;
+DOWNLOAD_LANG_ISO: Language code that will be downloaded from fastText [repository](https://github.com/facebookresearch/fastText/blob/master/docs/crawl-vectors.md);
+PRUNE_VECTORS: The vectors count that you want to prune (e.g. 1000);
+TRANING_TYPE: Training type used for the current input. Available choices: ud or fasttext;
+OVERWRITE_LANG: If needs to overwrite language features on spaCy. Available choices: True or False;
+AWS_ACCESS_KEY_ID: AWS Access Key of the bucket to save the final model;
+AWS_SECRET_ACCESS_KEY: AWS Secret Key of the bucket to save the final model;
+GITHUB_USERNAME: Username of the Github account that will receive languages features;
+GITHUB_EMAIL: Email of the Github account that will receive language features;
+```
+Finally, you can run the up command to start processing:
+```
+docker-compose up
+```
+
 Testing
 -------
 
