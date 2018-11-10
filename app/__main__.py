@@ -20,4 +20,4 @@ parser.add_argument('download_source', type=str, help='The language source of th
 args = parser.parse_args()
 
 run(os.path.join(os.path.dirname(__file__), '..'), args.code, args.name, args.type,
-    str_to_bool(args.overwrite), args.size, args.prune_vectors, args.download_code)
+    str_to_bool(args.overwrite), args.size, args.prune_vectors, args.download_source)
