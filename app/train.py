@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from urllib.parse import urlparse
 
 import os.path
 from spacy.cli import train, init_model
@@ -37,7 +38,7 @@ def create_models_path(_code, _dir):
 
 def train_fast_text(_dir, _code, _download_source, _prune_vectors):
     models_path = create_models_path(_code, _dir)
-    filename = 'cc.{0}.300.vec.gz'.format(_code)
+    filename = os.path.basename(urlparse(_download_source).path)
 
     train_data = current_dir + '/../input/{0}/{1}'.format(_code, filename)
 
