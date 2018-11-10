@@ -12,7 +12,7 @@ services:
       - LANG_ISO
       - LANG_NAME
       - LANG_SIZE
-      - DOWNLOAD_LANG_ISO
+      - DOWNLOAD_SOURCE
       - PRUNE_VECTORS
       - TRANING_TYPE
       - OVERWRITE_LANG
