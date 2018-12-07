@@ -1,6 +1,8 @@
 export MODEL_NAME=${LANG_ISO}_vectors_web_${LANG_SIZE}-1.0.0
 
 python -m app $LANG_ISO $LANG_NAME $TRANING_TYPE $OVERWRITE_LANG $LANG_SIZE $PRUNE_VECTORS $DOWNLOAD_LANG_ISO
+
+mkdir output
 python -m spacy package ../models/$LANG_ISO/ output/
 
 cd output/$MODEL_NAME
