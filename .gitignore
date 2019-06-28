@@ -2,5 +2,6 @@
 .cache
 *.pyc
 output/
-env/
 .idea/
+*.DS_Store
+env/

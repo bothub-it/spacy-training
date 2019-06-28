@@ -29,7 +29,7 @@ Once spaCy 2.0 is configured at the root directory as spacy-training, and you pr
 Docker
 ----------
 Using docker is the easiest way of processing the models. You can just go into docker directory and build the image:
-```
+```bash
 docker-compose build --build-arg GITHUB_SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)"
 ```
 `GITHUB_SSH_PRIVATE_KEY` is the key for your Github Account, that needs to have write permission on any fork from spaCy [repository](https://github.com/explosion/spaCy.git).
@@ -49,7 +49,7 @@ GITHUB_USERNAME: Username of the Github account that will receive languages feat
 GITHUB_EMAIL: Email of the Github account that will receive language features;
 ```
 Finally, you can run the up command to start processing:
-```
+```bash
 docker-compose up
 ```
 
@@ -57,7 +57,7 @@ Testing
 -------
 
 We use pytest for testing. Run all tests with:
-```
+```bash
 python3 -m pytest
 ```
 
