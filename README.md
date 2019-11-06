@@ -50,7 +50,7 @@ GITHUB_EMAIL: Email of the Github account that will receive language features;
 ```
 Finally, you can run the up command to start processing:
 ```bash
-docker-compose up
+docker-compose -f docker/docker-compose.yml up
 ```
 
 Testing
