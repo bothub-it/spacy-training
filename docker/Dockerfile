@@ -1,24 +1,23 @@
-FROM python:3.6
+FROM python:3.7
 
-ENV SPACY_HOME /usr/src/spaCy
-ENV APP_HOME /usr/src/app
+ENV APP_HOME /app
+ENV SPACY_LANG_MODELS_HOME /spacy-lang-models
+ENV SPACY_LANG_PATH /usr/local/lib/python3.7/site-packages/spacy/lang
 ARG GITHUB_SSH_PRIVATE_KEY
 
 WORKDIR ${APP_HOME}
 
-COPY requirements.txt ./
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN git clone --branch feature/processing --depth=1 https://github.com/ilhasoft/spaCy.git $SPACY_HOME
-
-RUN pip install --no-cache-dir -r $SPACY_HOME/requirements.txt
-RUN pip install -e $SPACY_HOME
+RUN git clone --depth=1 https://github.com/Ilhasoft/spacy-lang-models.git ${SPACY_LANG_MODELS_HOME}
+RUN cp -r ${SPACY_LANG_MODELS_HOME}/pt_br/ ${SPACY_LANG_PATH} && \
+    cp -r ${SPACY_LANG_MODELS_HOME}/ha/ ${SPACY_LANG_PATH} && \
+    cp -r ${SPACY_LANG_MODELS_HOME}/mn/ ${SPACY_LANG_PATH}
 
 COPY . .
 
-RUN mkdir /root/.ssh/
-RUN echo "${GITHUB_SSH_PRIVATE_KEY}" > /root/.ssh/id_rsa
-RUN chmod 0400 /root/.ssh/id_rsa
+RUN echo $TRAINING_TYPE
 
 RUN chmod +x docker/entrypoint.sh
 ENTRYPOINT $APP_HOME/docker/entrypoint.sh
