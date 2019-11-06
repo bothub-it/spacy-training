@@ -1,0 +1,7 @@
+LANG_ISO=ha
+LANG_NAME=hausa
+LANG_SIZE=md
+DOWNLOAD_SOURCE=https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.ha.vec
+PRUNE_VECTORS=-1
+TRAINING_TYPE=fasttext
+OVERWRITE_LANG=False
