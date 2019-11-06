@@ -80,7 +80,7 @@ def metadata(_code, _name, _model_name):
     data = {
         'lang': _code,
         'name': _model_name,
-        'version': '1.0.0',
+        'version': '1.1.0',
         'description': '{0} model generated from fastText vectors'.format(_name),
         'author': 'Bothub',
         'email': 'bothub@ilhasoft.com.br',
